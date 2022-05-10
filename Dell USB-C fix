@@ -1,0 +1,36 @@
+How to fix lagging mouse/keyboard on USB-C docks
+
+```
+@echo off
+for /f "tokens=4-5 delims=. " %%i in ('ver') do set VERSION=%%i.%%j
+
+rem Win10 version: 10.0
+rem Win8.1 version: 6.3
+rem Win8 version: 6.2
+if "%version%" == "10.0" goto CHECK_X64
+if "%version%" == "6.3" goto CHECK_X64
+if "%version%" == "6.2" goto CHECK_X64
+goto NO_NEED_PATCH
+
+:CHECK_X64
+if not defined ProgramFiles(x86) goto NO_NEED_PATCH
+
+:DISABLE_ME_PM
+reg add HKLM\SYSTEM\CurrentControlSet\Services\MEIx64\Parameters\ /v PG_DISABLED /t REG_DWORD /d 1 /f
+@echo Please reboot your system to make the patch take effect.
+pause
+goto END
+
+rem Not Supported OS
+:NO_NEED_PATCH
+@echo This OS doesn't require this patch.
+@echo Press the space key to exit.
+pause
+goto END
+
+:END
+```
+
+source: 
+https://www.dell.com/community/XPS/XPS-15-9570-mouse-keyboard-lag-repeating-keys/m-p/7331025#M30873
+https://www.dell.com/community/XPS/XPS13-keyboard-and-mouse-lag-when-using-USB-C-bandwith/td-p/7980193
