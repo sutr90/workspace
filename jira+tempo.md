@@ -80,7 +80,7 @@ observer.observe(elementToObserve, {subtree: true, childList: true});
 ```
 
 ```
-var x = document.querySelectorAll("[data-test-id='issue.views.issue-details.issue-layout.left-most-column']")[0]
+var x = document.querySelectorAll("[data-testid='issue.views.issue-details.issue-layout.left-most-column']")[0]
 if(x){
 
 var container = x.childNodes[3];
@@ -93,15 +93,18 @@ if(!buttonId && container){
     var button = document.createElement("button");
     var textnode = document.createTextNode("Copy issue summary");
 
-    button.classList.add("css-s0tfqx");
-
     div.appendChild(button);
     button.appendChild(textnode);
+    button.style.marginLeft = "8px";
+    button.classList.add("css-1xewsy6");
 
     container.appendChild(div);
     var key = window.location.pathname.split("/");
-    var issue = x.childNodes[1].querySelector("[data-test-id='issue.views.issue-base.foundation.summary.heading']").textContent;
-    button.addEventListener("click", ()=>copyTextToClipboard(key[2] + " " + issue)); 
+    var issue = x.childNodes[1].querySelector("[data-testid='issue.views.issue-base.foundation.summary.heading']").textContent;
+    button.addEventListener("click", ()=>copyTextToClipboard(key[2] + " " + issue));
+
+var tempoButton = container.childNodes[3].childNodes[0];
+tempoButton.remove();
 
 }
 
